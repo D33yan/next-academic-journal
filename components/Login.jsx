@@ -79,6 +79,9 @@ export default function LoginPage() {
           >
             Login
           </button>
+          <p className='text-blue-800 font-bold' >
+            Dont Have an Account?  <a href="/sign-up" className='text-teal-700' >Sign Up</a>
+          </p>
 
         
 
