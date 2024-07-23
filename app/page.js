@@ -28,7 +28,7 @@ export default async function Home() {
         <div className=" px-2 py-5 mx-auto w-full bg-gray-900">
           <div className="flex flex-wrap -m-1">
             <div
-              className="relative w-full h-[100vh] md:h-96 lg:h-[500px] bg-cover  rounded-xl bg-opacity-85 "
+              className="relative w-full h-[100vh] md:h-96 lg:h-[500px] bg-cover bg-center rounded-xl bg-opacity-85"
               style={{ backgroundImage: "url(/journalhome.jpg)" }}
             >
               <div className="absolute inset-0 bg-black opacity-50 rounded-xl"></div>
