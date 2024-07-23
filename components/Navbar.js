@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { auth } from '../firebaseConfig'; // Adjust the path as needed
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import {  UserIcon } from "@heroicons/react/24/solid";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,7 +44,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <Link href="/" className="text-white font-semibold text-lg">
-                IJSF
+                Uniabuja academic Journal
               </Link>
             </div>
             <div className="hidden md:block">
@@ -63,8 +64,9 @@ const Navbar = () => {
           <div className="hidden md:block">
             {user ? (
               <div className="flex items-center space-x-4">
-                <Link href="/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-1 rounded-md text-sm font-medium">
-                  Profile
+                <Link href="/profile" className="p-2 mx-1 rounded-3xl hover:bg-teal-700 focus:bg-teal-700 bg-teal-900 text-white font-bold">
+                
+                  <UserIcon className="h-5 w-5 text-white" aria-hidden="true" />
                 </Link>
                 <button
                   onClick={handleSignOut}

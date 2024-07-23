@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db,storage } from '@/firebaseConfig';
+import { db, storage } from '@/firebaseConfig';
 import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { Snackbar, Alert, Button, CircularProgress } from '@mui/material';
@@ -80,7 +80,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen bg-gray-800'>
+    <div className='flex flex-col px-10 min-h-screen bg-gray-800'>
       <h2 className='text-2xl font-bold mb-6 text-white'>Your Journals</h2>
       {loading ? (
         <CircularProgress />
@@ -89,16 +89,20 @@ export default function ProfilePage() {
           {journals.length === 0 ? (
             <p className='text-gray-600'>No journals found</p>
           ) : (
-            <ul className='space-y-4'>
+            <ul role="list" className="divide-y divide-gray-100">
               {journals.map(journal => (
-                <li key={journal.id} className='flex justify-between items-center p-4 bg-gray-100 rounded-md'>
-                  <div>
-                    <h3 className='text-lg font-semibold'>{journal.title}</h3>
-                    <p className='text-gray-600'>{journal.description}</p>
+                <li key={journal.id} className="flex justify-between gap-x-6 py-5">
+                  <div className="flex min-w-0 gap-x-4">
+                    <img alt={journal.title} src={journal.imageUrl} className="h-12 w-12 flex-none rounded-full bg-gray-50" />
+                    <div className="min-w-0 flex-auto">
+                      <p className="text-sm font-semibold leading-6 text-gray-900">{journal.title}</p>
+                      <p className="mt-1 truncate text-xs leading-5 text-gray-500">{journal.description}</p>
+                    </div>
                   </div>
                   <Button
                     variant='contained'
-                    color='secondary'
+                   
+                    className='bg-gray-800 focus:bg-gray-600'
                     onClick={() => handleDeleteJournal(journal.id, journal.imageUrl, journal.pdfUrl)}
                   >
                     Delete

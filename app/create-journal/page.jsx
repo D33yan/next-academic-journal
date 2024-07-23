@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { db, storage } from '@/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert, CircularProgress } from '@mui/material';
 import { auth } from '../utilits/auth-listener';
 import { useRouter } from 'next/navigation';
 import { createSlug } from '../utilits/slug-generate';
@@ -19,6 +19,7 @@ export default function CreateJournal() {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertSeverity, setAlertSeverity] = useState('success');
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -41,6 +42,8 @@ export default function CreateJournal() {
       setOpen(true);
       return;
     }
+
+    setLoading(true);
 
     try {
       // Upload cover image
@@ -80,7 +83,11 @@ export default function CreateJournal() {
       setAlertSeverity('error');
       setOpen(true);
       console.error(e);
+    } finally {
+      setLoading(false);
+
     }
+    
   };
 
   const handleClose = () => {
@@ -207,7 +214,7 @@ export default function CreateJournal() {
             type="submit"
             className="rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
             >
-            Create Journal
+            {loading ? <CircularProgress size={24} color="inherit" /> : 'Create Journal'}
           </button>
         </div>
       </form>

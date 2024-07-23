@@ -4,7 +4,7 @@ import Link from "next/link";
         const navLinks = [
             { href: "/", text: "Home" },
             { href: "/about", text: "About" },
-            { href: "/create-journal", text: "journals" },
+            { href: "/create-journal", text: "Journals" },
             { href: "/contact", text: "Contact" },
           ];
 export function Footer(){
@@ -40,7 +40,7 @@ export function Footer(){
         <img src="https://img.icons8.com/fluent/30/000000/twitter.png" />
     </a>
 </div>
-<p class="text-center text-gray-700 font-medium">&copy; 2024 DivineRealm. All rights reserved.</p>
+<p class="text-center text-white">&copy; 2024 DivineRealm. All rights reserved.</p>
 </footer>
 )
 }
