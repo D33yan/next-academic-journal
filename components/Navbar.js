@@ -13,6 +13,7 @@ const Navbar = () => {
   const navLinks = [
     { href: "/", text: "Home" },
     { href: "/about", text: "About" },
+    { href: "/create-journal", text: "journals" },
     { href: "/contact", text: "Contact" },
   ];
 
@@ -23,7 +24,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <Link href="/" className="text-white font-semibold text-lg">
-                Blog
+                IJSF
               </Link>
             </div>
             <div className="hidden md:block">

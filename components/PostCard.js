@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const PostCard = ({ post, index }) => {
+const JounalCard = ({ post, index }) => {
   return (
     <div className="p-4 md:w-1/3" key={index}>
       <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">

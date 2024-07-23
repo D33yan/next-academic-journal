@@ -1,26 +1,8 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
 
-const getPostBySlug = async (slug) => {
-  const querySnapshot = await getDocs(
-    query(collection(db, "blogs"), where("slug", "==", slug))
-  );
-  if (querySnapshot.empty) {
-    return null;
-  }
-
-  const postDoc = querySnapshot.docs[0];
-  const post = postDoc.data();
-  return post;
-};
-
-export default async function Page({ params }) {
-  const { slug } = params;
-  const post = await getPostBySlug(slug);
-  if (!post) return null;
-
-  console.log(post?.date);
-
+const getPostBySlug = async () => {
+ 
   return (
     <div className="container px-5 py-24 mx-auto">
       <div className="max-w-2xl mx-auto">
