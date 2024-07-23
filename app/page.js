@@ -3,6 +3,7 @@ import { db } from "../firebaseConfig";
 import { CreateJournal } from "./create-journal/page";
 import AboutSection from "./about-section/page";
 import JournalCards from "@/components/Journals";
+import { Footer } from "@/components/footer";
 
 const getJournals = async () => {
   const alljournals = [];
@@ -24,7 +25,7 @@ export default async function Home() {
   return (
     <>
       <section className="text-gray-600 body-font ">
-        <div className=" px-2 py-5 mx-auto w-full bg-gray-800">
+        <div className=" px-2 py-5 mx-auto w-full bg-gray-900">
           <div className="flex flex-wrap -m-1">
             <div
               className="relative w-full h-[100vh] md:h-96 lg:h-[500px] bg-cover  rounded-xl bg-opacity-85 "
@@ -41,7 +42,7 @@ export default async function Home() {
                 <a
                 href="/create-journal"
                   className="absolute  font-bold font-serif mt-32  rounded-3xl z-10 md:p-2 md:mt-28 md:text-lg  text-xl p-3  sm:p-3 sm:text-xshover:animate-pulse text-white bg-gradient-to-r from-neutral-900 via-teal-900 to-cyan-950
-         border-[1px] border-cyan-500 hover:to-black duration-75 hover:text-slate-100  py-1 px-2 sm:mt-16 hover:animate-pulse  hover:duration-1000 ease-in-out
+          border-cyan-500 hover:to-black duration-75 hover:text-slate-100  py-1 px-2 sm:mt-16 hover:animate-pulse  hover:duration-1000 ease-in-out
                     "
                 >
                   Get Started
@@ -53,6 +54,7 @@ export default async function Home() {
       <AboutSection/>
       <JournalCards/>
       </section>
+      <Footer/>
     </>
   );
 }

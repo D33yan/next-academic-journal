@@ -1,19 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { auth } from '../firebaseConfig'; // Adjust the path as needed
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      setUser(null);
+    }).catch((error) => {
+      console.error("Sign out error", error);
+    });
+  };
+
   const navLinks = [
     { href: "/", text: "Home" },
     { href: "/about", text: "About" },
-    { href: "/create-journal", text: "journals" },
+    { href: "/create-journal", text: "Journals" },
     { href: "/contact", text: "Contact" },
   ];
 
@@ -33,13 +52,32 @@ const Navbar = () => {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-1 rounded-md text-sm font-medium"
                   >
                     {link.text}
                   </Link>
                 ))}
               </div>
             </div>
+          </div>
+          <div className="hidden md:block">
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Link href="/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-1 rounded-md text-sm font-medium">
+                  Profile
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-1 rounded-md text-sm font-medium"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <Link href="/sign-up" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-1 rounded-md text-sm font-medium">
+                Login
+              </Link>
+            )}
           </div>
           <div className="block md:hidden">
             <button
@@ -84,6 +122,23 @@ const Navbar = () => {
                   {link.text}
                 </Link>
               ))}
+              {user ? (
+                <>
+                  <Link href="/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                    Profile
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <Link href="/sign-up" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         )}

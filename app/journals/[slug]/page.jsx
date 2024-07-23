@@ -48,7 +48,7 @@ export default function JournalDetail(context) {
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold text-white">{params.title}</h1>
       <p className="text-gray-600">By {params.author}</p>
-      <img src={params.image} alt={params.title} className="w-full h-64 object-cover mt-4 rounded" />
+      <img src={params.image} alt={params.title} className="w-full h-80 object-cover mt-4 rounded" />
       <p className="mt-4 text-white">{params.description}</p>
 
       <button>

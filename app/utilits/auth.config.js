@@ -1,17 +1,14 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from './firebaseConfig';
 
-const signUp = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+export const signIn = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 
   import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
