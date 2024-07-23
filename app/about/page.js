@@ -2,25 +2,19 @@ const Page = () => {
   return (
     <div className="container px-5 py-12 mx-auto">
       <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold mb-4">About</h1>
-        <p className="text-lg text-gray-600 mb-8">
+        <h1 className="text-4xl font-bold mb-4 text-white">About</h1>
+        <p className="text-lg text-white mb-8">
           Welcome to our blog! We are passionate about sharing valuable insights
           and knowledge in various fields.
         </p>
-        <p className="text-lg text-gray-600 mb-8">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-          fermentum felis non urna congue, ac fringilla est vestibulum. Nullam
-          ultrices interdum diam, eu viverra nisi efficitur vitae.
+        <p className="text-lg text-white mb-8">
+          It is a fully functional fullStack website made with Nextjs Firebase And Tailwind css
         </p>
-        <p className="text-lg text-gray-600 mb-8">
-          Praesent faucibus, enim quis condimentum scelerisque, tellus nulla
-          ullamcorper sapien, ut facilisis lacus erat sit amet ligula. Sed
-          finibus purus non felis rutrum tincidunt.
+        <p className="text-lg text-white mb-8">
+          It enables everyone to be able to create a journal and logIn to the website
         </p>
-        <p className="text-lg text-gray-600 mb-8">
-          Vestibulum sit amet varius ligula, sit amet eleifend ipsum. Nullam ut
-          mi et tellus ullamcorper hendrerit nec vel odio. Sed auctor malesuada
-          orci sed efficitur.
+        <p className="text-lg text-white mb-8">
+        It was made with The joint effort of 35 Uniabuja Students and it was made to make learning easier in the school 
         </p>
       </div>
     </div>

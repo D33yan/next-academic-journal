@@ -74,7 +74,7 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <Link href="/sign-up" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-1 rounded-md text-sm font-medium">
+              <Link href="/login" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-1 rounded-md text-sm font-medium">
                 Login
               </Link>
             )}
@@ -135,7 +135,7 @@ const Navbar = () => {
                   </button>
                 </>
               ) : (
-                <Link href="/sign-up" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                <Link href="/login" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                   Login
                 </Link>
               )}

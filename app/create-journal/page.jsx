@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { db, storage } from '../../firebaseConfig';
+import { useState, useEffect } from 'react';
+import { db, storage } from '@/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { createSlug } from '../utilits/slug-generate';
 import { Snackbar, Alert } from '@mui/material';
+import { auth } from '../utilits/auth-listener';
+import { useRouter } from 'next/navigation';
+import { createSlug } from '../utilits/slug-generate';
 
-export function CreateJournal() {
+export default function CreateJournal() {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [coverImage, setCoverImage] = useState(null);
@@ -16,6 +18,19 @@ export function CreateJournal() {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertSeverity, setAlertSeverity] = useState('success');
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        router.push('/login');
+      }
+    });
+    return () => unsubscribe();
+  }, [router]);
 
   const handleCreateJournal = async (e) => {
     e.preventDefault();
@@ -38,7 +53,7 @@ export function CreateJournal() {
       await uploadBytes(pdfRef, pdf);
       const pdfUrl = await getDownloadURL(pdfRef);
 
-      // Save data to Firestore
+      // Save data to Firestore with the uid
       await addDoc(collection(db, 'journals'), {
         title,
         author,
@@ -46,6 +61,7 @@ export function CreateJournal() {
         pdfUrl,
         description,
         slug: createSlug(title),
+        uid: user.uid, // Adding the user UID here
         createdAt: new Date().getTime(),
       });
 
@@ -71,58 +87,58 @@ export function CreateJournal() {
     setOpen(false);
   };
 
+  if (!user) {
+    return null; // Return null to prevent the component from rendering before redirect
+  }
+
   return (
-    <div className='flex items-center justify-center min-h-screen bg-gray-900'>
-      <form onSubmit={handleCreateJournal} className='mx-auto'>
-        <div className="space-y-12 container">
-          <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-white">Profile</h2>
-            <p className="mt-1 text-sm leading-6 text-white">
+    <div className='flex items-center justify-center min-h-screen bg-gray-800'>
+      <form onSubmit={handleCreateJournal} className='bg-white p-6 rounded-md shadow-md mx-auto max-w-lg'>
+        <div className="space-y-12">
+          <div className="border-b border-gray-300 pb-12">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Create Journal</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
               This information will be displayed publicly so be careful what you share.
             </p>
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-4">
-                <label htmlFor="title" className="block text-sm font-medium leading-6 text-white">
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8">
+              <div>
+                <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
                   Title
                 </label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-teal-600 sm:max-w-md">
-                    <input
-                      id="title"
-                      name="title"
-                      type="text"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      placeholder="Enter title"
-                      autoComplete="title"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  <input
+                    id="title"
+                    name="title"
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Enter title"
+                    autoComplete="title"
+                    className="block w-full rounded-md border-0 py-1.5 pl-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                     />
-                  </div>
                 </div>
               </div>
-              <div className="sm:col-span-4">
-                <label htmlFor="author" className="block text-sm font-medium leading-6 text-white">
+              <div>
+                <label htmlFor="author" className="block text-sm font-medium leading-6 text-gray-900">
                   Author
                 </label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-teal-600 sm:max-w-md">
-                    <input
-                      id="author"
-                      name="author"
-                      type="text"
-                      value={author}
-                      onChange={(e) => setAuthor(e.target.value)}
-                      placeholder="Enter author name"
-                      autoComplete="author"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  <input
+                    id="author"
+                    name="author"
+                    type="text"
+                    value={author}
+                    onChange={(e) => setAuthor(e.target.value)}
+                    placeholder="Enter author name"
+                    autoComplete="author"
+                    className="block w-full rounded-md border-0 py-1.5 pl-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                     />
-                  </div>
                 </div>
               </div>
 
-              <div className="col-span-full">
-                <label htmlFor="description" className="block text-sm font-medium leading-6 text-white">
+              <div>
+                <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
                   Description
                 </label>
                 <div className="mt-2">
@@ -132,51 +148,50 @@ export function CreateJournal() {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     rows={3}
-                    className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
-                  />
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
+                    />
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences description yourself.</p>
+                <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the journal.</p>
               </div>
 
-              <div className="col-span-full">
-                <label htmlFor="image" className="block text-sm font-medium leading-6 text-white">
+              <div>
+                <label htmlFor="coverImage" className="block text-sm font-medium leading-6 text-gray-900">
                   Cover Image
                 </label>
-                <div className="mt-2 flex items-center gap-x-3">
+                <div className="mt-2">
                   <input
-                    id="image"
-                    name="image"
+                    id="coverImage"
+                    name="coverImage"
                     type="file"
                     accept="image/*"
                     onChange={(e) => setCoverImage(e.target.files[0])}
-                  />
+                    className="block w-full text-gray-900"
+                    />
                 </div>
               </div>
 
-              <div className="col-span-full">
-                <label htmlFor="file-upload" className="block text-sm font-medium leading-6 text-white">
+              <div>
+                <label htmlFor="pdf" className="block text-sm font-medium leading-6 text-gray-900">
                   Submit your Journal
                 </label>
-                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 bg-white">
+                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-300 px-6 py-10">
                   <div className="text-center">
-                    <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                      <label
-                        htmlFor="file-upload"
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-teal-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-teal-600 focus-within:ring-offset-2 hover:text-teal-500"
+                    <label
+                      htmlFor="pdf"
+                      className="relative cursor-pointer rounded-md bg-white font-semibold text-teal-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-teal-600 focus-within:ring-offset-2 hover:text-teal-500"
                       >
-                        <span>Upload a file</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          accept="application/pdf"
-                          onChange={(e) => setPdf(e.target.files[0])}
-                          className="sr-only"
+                      <span>Upload a file</span>
+                      <input
+                        id="pdf"
+                        name="pdf"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={(e) => setPdf(e.target.files[0])}
+                        className="sr-only"
                         />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
-                    </div>
-                    <p className="text-xs leading-5 text-gray-600">PDF or DOCX not more than 20MB</p>
+                    </label>
+                    <p className="text-sm text-gray-600 pl-1">or drag and drop</p>
+                    <p className="text-xs text-gray-600 mt-2">PDF or DOCX not more than 20MB</p>
                   </div>
                 </div>
               </div>
@@ -185,13 +200,13 @@ export function CreateJournal() {
         </div>
 
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button type="button" className="text-sm font-semibold leading-6 text-white">
+          <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
             Cancel
           </button>
           <button
             type="submit"
             className="rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
-          >
+            >
             Create Journal
           </button>
         </div>
@@ -205,5 +220,3 @@ export function CreateJournal() {
     </div>
   );
 }
-
-export default CreateJournal;
