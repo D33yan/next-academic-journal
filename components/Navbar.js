@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { auth } from '../firebaseConfig'; // Adjust the path as needed
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import {  UserIcon } from "@heroicons/react/24/solid";
+import {  UserIcon,ArrowRightEndOnRectangleIcon,TrashIcon } from "@heroicons/react/24/solid";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,7 +38,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-gray-800 relative z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -70,9 +70,9 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-1 rounded-md text-sm font-medium"
+                  className="p-2 mx-1 rounded-3xl hover:bg-red-600 focus:bg-red-900 bg-red-900 text-white font-bold"
                 >
-                  Sign Out
+                  <ArrowRightEndOnRectangleIcon className="h-5 w-5 text-white" aria-hidden="true" />
                 </button>
               </div>
             ) : (

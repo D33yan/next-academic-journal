@@ -7,6 +7,7 @@ import { ref, deleteObject } from 'firebase/storage';
 import { Snackbar, Alert, Button, CircularProgress } from '@mui/material';
 import { auth } from '../utilits/auth-listener';
 import { useRouter } from 'next/navigation';
+import { TrashIcon } from '@heroicons/react/24/solid';
 
 export default function ProfilePage() {
   const [journals, setJournals] = useState([]);
@@ -80,33 +81,32 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className='flex flex-col px-10 min-h-screen bg-gray-800'>
+    <div className='flex flex-col px-10 min-h-screen  bg-gray-800'>
       <h2 className='text-2xl font-bold mb-6 text-white'>Your Journals</h2>
       {loading ? (
         <CircularProgress />
       ) : (
-        <div className='w-full max-w-2xl bg-white p-6 rounded-md shadow-md'>
+        <div className='w-full max-w-2xl bg-gray-600 p-3 rounded-md shadow-md'>
           {journals.length === 0 ? (
-            <p className='text-gray-600'>No journals found</p>
+            <p className='text-white'>No journals found</p>
           ) : (
             <ul role="list" className="divide-y divide-gray-100">
               {journals.map(journal => (
-                <li key={journal.id} className="flex justify-between gap-x-6 py-5">
+                <li key={journal.id} className="flex text-white justify-between gap-x-6 py-5">
                   <div className="flex min-w-0 gap-x-4">
                     <img alt={journal.title} src={journal.imageUrl} className="h-12 w-12 flex-none rounded-full bg-gray-50" />
                     <div className="min-w-0 flex-auto">
-                      <p className="text-sm font-semibold leading-6 text-gray-900">{journal.title}</p>
-                      <p className="mt-1 truncate text-xs leading-5 text-gray-500">{journal.description}</p>
+                      <p className="text-lg leading-6 text-white font-bolder">{journal.title}</p>
+                      <p className="mt-1 truncate text-sm leading-5 text-white font-bold">{journal.description}</p>
                     </div>
                   </div>
-                  <Button
-                    variant='contained'
-                   
-                    className='bg-gray-800 focus:bg-gray-600'
+                  <button
+                    
+                    className="p-2 mx-1 rounded-md hover:bg-red-700 focus:bg-red-700 bg-red-900 text-white font-bold"
                     onClick={() => handleDeleteJournal(journal.id, journal.imageUrl, journal.pdfUrl)}
                   >
-                    Delete
-                  </Button>
+                   <TrashIcon className="h-5 w-5 text-white" aria-hidden="true" />
+                  </button>
                 </li>
               ))}
             </ul>

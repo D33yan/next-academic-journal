@@ -4,14 +4,14 @@ import Link from 'next/link';
 
 const JournalCards = ({ journals }) => {
   return (
-    <div className='container mx-auto p-4'>
+    <div className='container mx-auto p-4 shadow-2xl'>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
         {journals.map((journal, index) => (
-          <article className="group" key={index}>
+          <article className="group shadow-2xl" key={index}>
             <img
               alt={journal.title}
               src={journal.imageUrl}
-              className="h-56 w-full rounded-xl object-cover shadow-xl transition group-hover:grayscale-[50%] dark:shadow-gray-700/25"
+              className="h-56 w-full rounded-xl object-cover  transition group-hover:grayscale-[50%] dark:shadow-gray-700/25"
             />
             <div className="p-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">

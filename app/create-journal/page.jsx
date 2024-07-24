@@ -99,18 +99,18 @@ export default function CreateJournal() {
   }
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-gray-800'>
-      <form onSubmit={handleCreateJournal} className='bg-white p-6 rounded-md shadow-md mx-auto max-w-lg'>
+    <div className='flex items-center justify-center min-h-screen bg-gray-700 py-5'>
+      <form onSubmit={handleCreateJournal} className='bg-gray-800 p-6 rounded-md shadow-2xl mx-auto max-w-lg'>
         <div className="space-y-12">
           <div className="border-b border-gray-300 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">Create Journal</h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
+            <h2 className="text-base font-semibold leading-7 text-white">Create Journal</h2>
+            <p className="mt-1 text-sm leading-6 text-white">
               This information will be displayed publicly so be careful what you share.
             </p>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8">
               <div>
-                <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="title" className="block text-sm font-medium leading-6 text-white">
                   Title
                 </label>
                 <div className="mt-2">
@@ -122,12 +122,12 @@ export default function CreateJournal() {
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter title"
                     autoComplete="title"
-                    className="block w-full rounded-md border-0 py-1.5 pl-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 pl-1 bg-slate-800 text-white  ring-1 ring-inset shadow-lg placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                     />
                 </div>
               </div>
               <div>
-                <label htmlFor="author" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="author" className="block text-sm font-medium leading-6 text-white">
                   Author
                 </label>
                 <div className="mt-2">
@@ -139,13 +139,13 @@ export default function CreateJournal() {
                     onChange={(e) => setAuthor(e.target.value)}
                     placeholder="Enter author name"
                     autoComplete="author"
-                    className="block w-full rounded-md border-0 py-1.5 pl-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 pl-1 bg-slate-800  text-white  ring-1 ring-inset shadow-lg placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                     />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="description" className="block text-sm font-medium leading-6 text-white">
                   Description
                 </label>
                 <div className="mt-2">
@@ -155,14 +155,14 @@ export default function CreateJournal() {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     rows={3}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 text-white  ring-1 ring-inset shadow-lg placeholder:text-white bg-slate-800  focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                     />
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the journal.</p>
+                <p className="mt-3 text-sm leading-6 text-white">Write a few sentences about the journal.</p>
               </div>
 
               <div>
-                <label htmlFor="coverImage" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="coverImage" className="block text-sm font-medium leading-6 text-white">
                   Cover Image
                 </label>
                 <div className="mt-2">
@@ -172,20 +172,20 @@ export default function CreateJournal() {
                     type="file"
                     accept="image/*"
                     onChange={(e) => setCoverImage(e.target.files[0])}
-                    className="block w-full text-gray-900"
+                    className="block w-full bg-slate-800  text-white"
                     />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="pdf" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="pdf" className="block text-sm font-medium leading-6 text-white">
                   Submit your Journal
                 </label>
                 <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-300 px-6 py-10">
                   <div className="text-center">
                     <label
                       htmlFor="pdf"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-teal-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-teal-600 focus-within:ring-offset-2 hover:text-teal-500"
+                      className="relative cursor-pointer rounded-md bg-slate-800  font-semibold text-teal-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-teal-600 focus-within:ring-offset-2 hover:text-teal-500"
                       >
                       <span>Upload a file</span>
                       <input
@@ -197,8 +197,8 @@ export default function CreateJournal() {
                         className="sr-only"
                         />
                     </label>
-                    <p className="text-sm text-gray-600 pl-1">or drag and drop</p>
-                    <p className="text-xs text-gray-600 mt-2">PDF or DOCX not more than 20MB</p>
+                    <p className="text-sm text-white pl-1">or drag and drop</p>
+                    <p className="text-xs text-white mt-2">PDF or DOCX not more than 20MB</p>
                   </div>
                 </div>
               </div>
@@ -207,12 +207,12 @@ export default function CreateJournal() {
         </div>
 
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+          <button type="button" className="text-sm font-semibold leading-6 text-white">
             Cancel
           </button>
           <button
             type="submit"
-            className="rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+            className="rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white  hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
             >
             {loading ? <CircularProgress size={24} color="inherit" /> : 'Create Journal'}
           </button>
